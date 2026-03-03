@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useApp } from './context/AppContext';
 import Login from './pages/Login';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 import { LogOut, User as UserIcon } from 'lucide-react';
+
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
 const Navbar = () => {
   const { currentUser, logout } = useApp();
@@ -24,7 +27,9 @@ const Navbar = () => {
       zIndex: 100
     }}>
       <div className="flex-center" style={{ gap: '1rem' }}>
-        <h3 className="text-gold" style={{ margin: 0, fontFamily: 'var(--font-serif)' }}>Siyaj Perfumes</h3>
+        <h3 className="text-gold" style={{ margin: 0, fontFamily: 'var(--font-serif)' }}>
+          Siyaj Perfumes
+        </h3>
         <span className="badge badge-gold" style={{ marginLeft: '1rem' }}>
           {currentUser.role.toUpperCase()}
         </span>
@@ -47,6 +52,19 @@ const Navbar = () => {
 function App() {
   const { currentUser } = useApp();
 
+  // ✅ Firestore Test هنا جوه الـ Component
+  useEffect(() => {
+    console.log("Firestore test running...");
+
+    addDoc(collection(db, "test_connection"), {
+      status: "connected",
+      time: new Date()
+    })
+      .then(() => console.log("Data written successfully"))
+      .catch((err) => console.error("Firestore error:", err));
+
+  }, []);
+
   return (
     <>
       {currentUser && <Navbar />}
@@ -59,8 +77,9 @@ function App() {
           path="/"
           element={
             !currentUser ? <Navigate to="/login" /> :
-              currentUser.role === 'manager' ? <ManagerDashboard /> :
-                <EmployeeDashboard />
+              currentUser.role === 'manager'
+                ? <ManagerDashboard />
+                : <EmployeeDashboard />
           }
         />
         <Route path="*" element={<Navigate to="/" />} />
@@ -68,13 +87,5 @@ function App() {
     </>
   );
 }
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase";
 
-useEffect(() => {
-  addDoc(collection(db, "test_connection"), {
-    status: "connected",
-    time: new Date()
-  });
-}, []);
 export default App;
