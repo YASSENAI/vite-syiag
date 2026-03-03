@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import { BarChart3, PackageOpen, Users, TrendingUp, AlertTriangle, Plus, Edit2, ShieldAlert, FileText, CheckCircle, XCircle, Clock, Upload, MapPin } from 'lucide-react';
 
 const ManagerDashboard = () => {
+    useEffect(() => {
+  console.log("ManagerDashboard loaded");
+
+  addDoc(collection(db, "test_connection"), {
+    status: "connected from manager",
+    time: new Date()
+  })
+    .then(() => console.log("Firestore write success"))
+    .catch((err) => console.error("Firestore error:", err));
+
+}, []);
     const {
         branches, products, users, sales, audits, auditTasks, attendance, supplies,
         addProduct, addProductsBulk, addUser, updateProductStock, updateUserDeductions, updateUserTargets,
@@ -354,21 +367,6 @@ const ManagerDashboard = () => {
             updateProductStock(id, editStock);
             setEditingProduct(null);
         };
-import { useEffect } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
-
-useEffect(() => {
-  console.log("ManagerDashboard loaded");
-
-  addDoc(collection(db, "test_connection"), {
-    status: "connected from manager",
-    time: new Date()
-  })
-    .then(() => console.log("Firestore write success"))
-    .catch((err) => console.error("Firestore error:", err));
-
-}, []);
         return (
             <div className="animate-fade-in" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2.5fr) minmax(0, 1fr)', gap: '2rem' }}>
                 <div>
