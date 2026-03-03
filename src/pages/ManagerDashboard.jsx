@@ -982,8 +982,8 @@ const ManagerDashboard = () => {
         <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', direction: 'rtl' }}>
             <div className="flex-between" style={{ marginBottom: '2.5rem' }}>
                 <div>
-                    <h2>لوحة تحكم الإدارة</h2>
-                    <p className="text-muted">نظام إدارة المركز الرئيسي لعطور أورا</p>
+                    <h2 style={{color: "red"}}>TEST FIREBASE</h2>
+                    <p className="text-muted">نظام إدارة المركز الرئيسي لعطورسياج</p>
                 </div>
             </div>
 
