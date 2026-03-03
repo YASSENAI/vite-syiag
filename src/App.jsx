@@ -68,5 +68,13 @@ function App() {
     </>
   );
 }
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
+useEffect(() => {
+  addDoc(collection(db, "test_connection"), {
+    status: "connected",
+    time: new Date()
+  });
+}, []);
 export default App;
