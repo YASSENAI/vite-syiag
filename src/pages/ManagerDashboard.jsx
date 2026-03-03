@@ -6,16 +6,16 @@ import { BarChart3, PackageOpen, Users, TrendingUp, AlertTriangle, Plus, Edit2, 
 
 const ManagerDashboard = () => {
     useEffect(() => {
-  console.log("ManagerDashboard loaded");
+        console.log("ManagerDashboard loaded");
 
-  addDoc(collection(db, "test_connection"), {
-    status: "connected from manager",
-    time: new Date()
-  })
-    .then(() => console.log("Firestore write success"))
-    .catch((err) => console.error("Firestore error:", err));
+        addDoc(collection(db, "test_connection"), {
+            status: "connected from manager",
+            time: new Date()
+        })
+            .then(() => console.log("Firestore write success"))
+            .catch((err) => console.error("Firestore error:", err));
 
-}, []);
+    }, []);
     const {
         branches, products, users, sales, audits, auditTasks, attendance, supplies,
         addProduct, addProductsBulk, addUser, updateProductStock, updateUserDeductions, updateUserTargets,
@@ -982,7 +982,7 @@ const ManagerDashboard = () => {
         <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', direction: 'rtl' }}>
             <div className="flex-between" style={{ marginBottom: '2.5rem' }}>
                 <div>
-                    <h2 style={{color: "red"}}>TEST FIREBASE</h2>
+                    <h2 style={{ color: "red" }}>TEST FIREBASE</h2>
                     <p className="text-muted">نظام إدارة المركز الرئيسي لعطورسياج</p>
                 </div>
             </div>
